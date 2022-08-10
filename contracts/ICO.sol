@@ -24,6 +24,15 @@ contract ICO {
     admin = msg.sender;
   }
 
+  function getSale(address _investor) external view returns(uint) {
+    for(uint i = 0; i < sales.length; i++) {
+      if(sales[i].investor == _investor) {
+        return sales[i].quantity;
+      }
+    }
+    return 0;
+  }
+
   function start (uint duration, uint price, uint tokenNumber, uint min, uint max) external onlyAdmin() icoNotActive() {
     require(duration > 0, 'Duration should be bigger than 0.');
     uint totalSupply = ERC20Token(tokenAdress).totalSupply();
